@@ -17,6 +17,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BeerDTO {
+    private Long id;
 
     @NotNull
     @Size(min = 1, max = 200)

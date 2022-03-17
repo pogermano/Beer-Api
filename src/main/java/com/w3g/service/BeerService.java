@@ -19,12 +19,19 @@ public class BeerService {
     private final BeerMapper beerMapper = BeerMapper.INSTANCE;
 
     public BeerDTO createBeer(BeerDTO beerDTO) throws BeerAlreadyRegisteredException {
-        Optional<Beer> findAlreadyRegistered = beerRepository.findByName(beerDTO.getName());
-        if(findAlreadyRegistered.isPresent()){
-            throw new BeerAlreadyRegisteredException(beerDTO.getName());
-        }
+        verifyIfItsAlreadyRegistered(beerDTO.getName());
+
         Beer beerToSave = beerMapper.toModel(beerDTO);
-        beerRepository.save(beerToSave);
-        return beerDTO;
+        Beer beerSaved = beerRepository.save(beerToSave);
+        return beerMapper.toDTO(beerSaved);
+    }
+
+
+    private Optional<Beer> verifyIfItsAlreadyRegistered(String name) throws BeerAlreadyRegisteredException {
+        Optional<Beer> optSavedBeer = beerRepository.findByName(name);
+        if(optSavedBeer.isPresent()){
+            throw new BeerAlreadyRegisteredException(name);
+        }
+        return optSavedBeer;
     }
 }

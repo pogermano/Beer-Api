@@ -6,6 +6,7 @@ import com.w3g.service.BeerService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,13 +20,8 @@ public class BeerController implements BeerDocs {
     private final BeerService beerService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public BeerDTO createBeer(@RequestBody @Valid BeerDTO beerDTO) throws BeerAlreadyRegisteredException {
-//        BeerDTO beerDTO1 = BeerDTO
-//                .builder()
-//                .name("Pilsen")
-//                .brand("Skoll")
-//                .build();
-
         return beerService.createBeer(beerDTO);
     }
 }

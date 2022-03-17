@@ -1,13 +1,12 @@
 package com.w3g.mapper;
 
 import com.w3g.dto.BeerDTO;
-import com.w3g.dto.BeerDTO.BeerDTOBuilder;
 import com.w3g.entity.Beer;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-03-17T10:10:39-0300",
+    date = "2022-03-17T13:43:37-0300",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 17.0.2 (Azul Systems, Inc.)"
 )
 public class BeerMapperImpl implements BeerMapper {
@@ -20,6 +19,7 @@ public class BeerMapperImpl implements BeerMapper {
 
         Beer beer = new Beer();
 
+        beer.setId( beerDTO.getId() );
         beer.setName( beerDTO.getName() );
         beer.setBrand( beerDTO.getBrand() );
         if ( beerDTO.getMax() != null ) {
@@ -39,14 +39,15 @@ public class BeerMapperImpl implements BeerMapper {
             return null;
         }
 
-        BeerDTOBuilder beerDTO = BeerDTO.builder();
+        BeerDTO beerDTO = new BeerDTO();
 
-        beerDTO.name( beer.getName() );
-        beerDTO.brand( beer.getBrand() );
-        beerDTO.max( beer.getMax() );
-        beerDTO.quantity( beer.getQuantity() );
-        beerDTO.type( beer.getType() );
+        beerDTO.setId( beer.getId() );
+        beerDTO.setName( beer.getName() );
+        beerDTO.setBrand( beer.getBrand() );
+        beerDTO.setMax( beer.getMax() );
+        beerDTO.setQuantity( beer.getQuantity() );
+        beerDTO.setType( beer.getType() );
 
-        return beerDTO.build();
+        return beerDTO;
     }
 }
